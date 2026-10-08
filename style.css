@@ -1,0 +1,1905 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+
+/* ============================================================
+   STAGE
+   ============================================================ */
+
+.prizino-arcade-stage {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    padding: 18px 0 35px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+/* ============================================================
+   ARCADE CONTAINER
+   ============================================================ */
+
+.prizino-arcade {
+    position: relative;
+    width: min(88vw, 500px);
+    max-width: 500px;
+    margin: 0 auto;
+    aspect-ratio: 819 / 1120;
+    flex-shrink: 0;
+}
+
+
+/* ============================================================
+   CABINET IMAGE
+   ============================================================ */
+
+.prizino-arcade-image {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 10;
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   STATUS OVERLAY
+   ============================================================ */
+
+.screen-status {
+    position: absolute;
+    inset: 0;
+    z-index: 25;
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   PLAYER CARD
+   ============================================================ */
+
+.screen-player {
+    position: absolute;
+    left: 13.4%;
+    top: 3.4%;
+    width: 73.2%;
+    height: 12.5%;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    box-sizing: border-box;
+    border: 1px solid rgba(111,255,253,.36);
+    border-radius: .65rem;
+    background:
+        linear-gradient(
+            100deg,
+            rgba(128,47,165,.98),
+            rgba(48,26,75,.98) 58%,
+            rgba(2,199,251,.22)
+        );
+    padding: .4rem .58rem;
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.2),
+        0 0 12px rgba(208,67,255,.38);
+}
+
+
+/* ============================================================
+   AVATAR
+   ============================================================ */
+
+.screen-avatar {
+    display: grid;
+    width: clamp(1.75rem, 6vw, 2.6rem);
+    height: clamp(1.75rem, 6vw, 2.6rem);
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.7);
+    background: linear-gradient(135deg, #f5f471, #39ff14);
+    color: #301a4b;
+    font-family: 'Outfit', sans-serif;
+    font-size: .55rem;
+    font-weight: 900;
+}
+
+
+/* ============================================================
+   PLAYER TEXT
+   ============================================================ */
+
+.screen-player-copy {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    line-height: 1.05;
+}
+
+.screen-player-copy em {
+    margin-bottom: .12rem;
+    color: #6ffffd;
+    font-size: clamp(.28rem, .85vw, .42rem);
+    font-style: normal;
+    font-weight: 900;
+    letter-spacing: .15em;
+}
+
+.screen-player-copy strong {
+    overflow: hidden;
+    color: #ffffff;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.7rem, 2.25vw, 1rem);
+    font-weight: 800;
+    line-height: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.screen-player-copy small {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+    margin-top: .18rem;
+    color: #301a4b;
+    font-size: clamp(.36rem, 1.25vw, .52rem);
+    font-weight: 800;
+}
+
+.screen-player-copy small b,
+.screen-player-copy small i {
+    border-radius: 99px;
+    padding: .08rem .25rem;
+    font-style: normal;
+}
+
+.screen-player-copy small b { background: #6ffffd; }
+.screen-player-copy small i { background: #f5f471; }
+
+
+/* ============================================================
+   XP PROGRESS
+   ============================================================ */
+
+.screen-progress {
+    position: relative;
+    display: flex;
+    width: 38%;
+    min-width: 5.5rem;
+    align-items: center;
+    gap: .25rem;
+}
+
+.screen-progress small {
+    position: absolute;
+    left: 0;
+    bottom: calc(50% + .3rem);
+    color: rgba(255,255,255,.68);
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.3rem, .9vw, .42rem);
+    font-weight: 800;
+    letter-spacing: .12em;
+}
+
+.screen-progress i {
+    height: .5rem;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    border-radius: 99px;
+    border: 1px solid rgba(255,255,255,.18);
+    background: rgba(255,255,255,.13);
+    box-shadow: 0 0 8px rgba(208,67,255,.45);
+}
+
+.screen-progress i::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: var(--progress, 0%);
+    background: linear-gradient(90deg, #f5f471 0%, #d043ff 100%);
+    border-radius: 99px;
+}
+
+.screen-progress b {
+    color: #6ffffd;
+    font-size: clamp(.42rem, 1.35vw, .58rem);
+}
+
+
+/* ============================================================
+   BALANCES
+   ============================================================ */
+
+.screen-balances {
+    position: absolute;
+    left: 13.8%;
+    top: 20.2%;
+    width: 72.4%;
+    height: 5.5%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5%;
+    margin: 0;
+    pointer-events: auto;
+}
+
+.screen-balance {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: center;
+    gap: .2rem;
+    border: 0;
+    border-radius: .28rem;
+    background: rgba(6,2,10,.6);
+    padding: .12rem .08rem;
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.42rem, 1.5vw, .66rem);
+    font-weight: 700;
+    text-shadow: 0 0 5px currentColor;
+    color: #fff;
+    cursor: pointer;
+}
+
+.screen-balance:hover { opacity: .8; }
+
+
+/* ============================================================
+   COINS
+   ============================================================ */
+
+.coin {
+    width: clamp(.32rem, 1.3vw, .52rem);
+    height: clamp(.32rem, 1.3vw, .52rem);
+    flex: 0 0 auto;
+    transform: rotate(45deg);
+    border-radius: .08rem;
+}
+
+.coin.gold { background: #f5f471; box-shadow: 0 0 7px #f5f471; }
+.coin.silver { background: #6ffffd; box-shadow: 0 0 7px #6ffffd; border-radius: 50%; }
+.coin.purple { background: #d043ff; box-shadow: 0 0 7px #d043ff; }
+
+
+/* ============================================================
+   MAIN SCREEN
+   ============================================================ */
+
+.machine-screen-area {
+    position: absolute;
+    left: 11.2%;
+    top: 28.5%;
+    width: 78.6%;
+    height: 35.2%;
+    z-index: 20;
+    overflow: hidden;
+    border-radius: 3.5%;
+    box-sizing: border-box;
+    color: white;
+
+    container-type: inline-size;
+    container-name: pzscreen;
+}
+
+
+/* ============================================================
+   SCREEN CONTENT
+   ============================================================ */
+
+.screen-content {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    display: block;
+    box-sizing: border-box;
+    padding: 0% 2.5%;
+    font-family: 'Outfit', sans-serif;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(111,255,253,.35) transparent;
+}
+
+.screen-content::-webkit-scrollbar { width: 4px; }
+.screen-content::-webkit-scrollbar-track { background: transparent; }
+.screen-content::-webkit-scrollbar-thumb {
+    background: rgba(111,255,253,.35);
+    border-radius: 3px;
+}
+
+
+/* ============================================================
+   PRIZINO SCREEN TITLE
+   ============================================================ */
+
+.screen-brand {
+    flex-shrink: 0;
+    text-align: center;
+    color: #6ffffd;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.9rem, 3.2vw, 1.35rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: .08em;
+    text-shadow: 0 0 8px rgba(111,255,253,.8);
+}
+
+.screen-brand-subtitle {
+    flex-shrink: 0;
+    margin-top: .12rem;
+    margin-bottom: .4rem;
+    text-align: center;
+    color: #f5f471;
+    font-size: clamp(.34rem, 1vw, .48rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: .1em;
+}
+
+
+/* ============================================================
+   OVERVIEW GRID
+   ============================================================ */
+
+.overview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    gap: 6px;
+    padding: 2px;
+    flex: 1;
+    min-height: 0;
+}
+
+.tile-profile   { grid-column: 1; grid-row: 1 / span 2; }
+.tile-activity  { grid-column: 2; grid-row: 1; }
+.tile-history   { grid-column: 2; grid-row: 2; }
+.tile-prizelist { grid-column: 1; grid-row: 3; }
+.tile-care      { grid-column: 1; grid-row: 4; }
+.tile-rewards   { grid-column: 2; grid-row: 3 / span 2; }
+
+
+/* ============================================================
+   ACCOUNT TILE BASE
+   ============================================================ */
+
+.account-tile {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+    padding: .45rem;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.20);
+    border-radius: .45rem;
+    color: #ffffff;
+    text-align: left;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer;
+    transition:
+        transform .15s ease,
+        border-color .15s ease,
+        box-shadow .15s ease;
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.12),
+        inset 0 -12px 24px rgba(0,0,0,.12),
+        0 3px 10px rgba(0,0,0,.2);
+}
+
+.tile-profile {
+    background: linear-gradient(145deg, rgba(128,47,165,.5), rgba(48,26,75,.9) 64%);
+    border-color: rgba(208,67,255,.30);
+}
+
+.tile-activity,
+.tile-rewards {
+    background: linear-gradient(145deg, rgba(2,199,251,.23), rgba(48,26,75,.92) 66%);
+    border-color: rgba(111,255,253,.30);
+}
+
+.tile-history {
+    background: linear-gradient(145deg, rgba(245,244,113,.18), rgba(48,26,75,.92) 66%);
+}
+
+.tile-prizelist {
+    background: linear-gradient(145deg, rgba(57,255,20,.16), rgba(48,26,75,.92) 66%);
+}
+
+.tile-care {
+    background: linear-gradient(145deg, rgba(255,255,255,.10), rgba(48,26,75,.92) 66%);
+}
+
+
+/* ============================================================
+   TILE TOP / ICON / ARROW / TITLE
+   ============================================================ */
+
+.tile-top {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.tile-icon {
+    display: grid;
+    width: 1.45rem;
+    height: 1.45rem;
+    place-items: center;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.20);
+    border-radius: .55rem;
+    color: #ffffff;
+    box-shadow:
+        0 0 12px rgba(208,67,255,.3),
+        inset 0 1px rgba(255,255,255,.22);
+}
+
+.tile-icon svg {
+    width: .75rem;
+    height: .75rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.tile-icon-purple {
+    background: linear-gradient(145deg, rgba(208,67,255,.8), rgba(128,47,165,.45));
+}
+
+.tile-icon-cyan {
+    background: linear-gradient(145deg, #6ffffd, #02c7fb);
+    color: #301a4b;
+    box-shadow: 0 0 12px rgba(2,199,251,.38);
+}
+
+.tile-icon-yellow {
+    background: linear-gradient(145deg, #f5f471, #e6b82a);
+    color: #301a4b;
+    box-shadow: 0 0 12px rgba(245,244,113,.32);
+}
+
+.tile-icon-green {
+    background: linear-gradient(145deg, #39ff14, #02c7fb);
+    color: #301a4b;
+    box-shadow: 0 0 12px rgba(57,255,20,.30);
+}
+
+.tile-icon-white {
+    background: linear-gradient(145deg, #ffffff, #b8b8b8);
+    color: #301a4b;
+    box-shadow: 0 0 12px rgba(255,255,255,.25);
+}
+
+.tile-arrow {
+    display: grid;
+    width: 1.25rem;
+    height: 1.25rem;
+    place-items: center;
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 50%;
+    background: rgba(255,255,255,.08);
+    color: rgba(255,255,255,.62);
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.tile-title {
+    margin-top: auto;
+    color: #ffffff;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.68rem, 2.1vw, .86rem);
+    font-weight: 600;
+    line-height: 1.25;
+    text-shadow: 0 1px 5px rgba(0,0,0,.55);
+}
+
+.account-tile:hover {
+    transform: translateY(-1px);
+    border-color: #6ffffd;
+    box-shadow:
+        0 0 14px rgba(111,255,253,.28),
+        inset 0 1px rgba(255,255,255,.18);
+}
+
+.account-tile::before {
+    content: '';
+    position: absolute;
+    right: -22%;
+    bottom: -45%;
+    width: 65%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: rgba(208,67,255,.14);
+    filter: blur(8px);
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   METAL BANNER
+   ============================================================ */
+
+.machine-ad-label {
+    position: absolute;
+    left: 20%;
+    top: 67%;
+    z-index: 30;
+    width: 60%;
+    color: #301a4b;
+    text-align: center;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.38rem, 1.25vw, .56rem);
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-shadow: 0 1px rgba(255,255,255,.82);
+}
+
+.machine-ad-label span {
+    display: inline-block;
+    margin-right: .35rem;
+    border-radius: 99px;
+    background: #802fa5;
+    color: #ffffff;
+    padding: .14rem .38rem;
+    box-shadow: 0 0 9px rgba(208,67,255,.28);
+}
+
+.machine-ad-label b { font-weight: 900; }
+
+
+/* ============================================================
+   PHYSICAL DECK BUTTONS
+   ============================================================ */
+
+.deck-btn-games,
+.deck-btn-prizes,
+.deck-btn-star-pick {
+    position: absolute;
+    z-index: 40;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.deck-btn-games { left: 22%; top: 75%; width: 25.5%; height: 6.2%; }
+.deck-btn-prizes { right: 22%; top: 75%; width: 25.5%; height: 6.2%; }
+.deck-btn-star-pick { left: 23%; top: 80.1%; width: 54%; height: 6.2%; }
+
+.deck-btn-games span,
+.deck-btn-prizes span,
+.deck-btn-star-pick span {
+    display: block;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.5rem, 2vw, .8rem);
+    font-weight: 900;
+    letter-spacing: .04em;
+}
+
+.deck-btn-games span,
+.deck-btn-prizes span {
+    color: #301a4b;
+    text-shadow: 0 1px rgba(255,255,255,.7);
+}
+
+.deck-btn-star-pick span {
+    color: #ffffff;
+    text-shadow: 0 1px 5px #802fa5;
+}
+
+.deck-btn-games:hover,
+.deck-btn-prizes:hover,
+.deck-btn-star-pick:hover { filter: brightness(1.25); }
+
+
+/* ============================================================
+   MOBILE — ARCADE CABINET
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+    .prizino-arcade-stage {
+        min-height: 100dvh;
+        padding: 10px 0 20px;
+        justify-content: center;
+    }
+
+    .prizino-arcade {
+        width: min(92vw, 430px);
+        max-width: 430px;
+    }
+
+    .screen-player {
+        left: 11.8%;
+        top: 3.2%;
+        width: 76.4%;
+        height: 12%;
+        gap: .3rem;
+        padding: .28rem .38rem;
+    }
+
+    .screen-avatar {
+        width: clamp(1.45rem, 7vw, 2rem);
+        height: clamp(1.45rem, 7vw, 2rem);
+        font-size: .45rem;
+    }
+
+    .screen-player-copy em { font-size: clamp(.26rem, 1.3vw, .36rem); }
+    .screen-player-copy strong { font-size: clamp(.62rem, 3vw, .82rem); }
+    .screen-player-copy small {
+        font-size: clamp(.3rem, 1.5vw, .4rem);
+        gap: .18rem;
+        margin-top: .12rem;
+    }
+
+    .screen-progress { min-width: 3.8rem; gap: .18rem; }
+    .screen-progress small { font-size: .26rem; bottom: calc(50% + .22rem); }
+    .screen-progress i { height: .38rem; }
+    .screen-progress b { font-size: .36rem; }
+
+    .screen-balances {
+        left: 12.5%;
+        top: 19.2%;
+        width: 75%;
+        height: 8%;
+        gap: 4%;
+    }
+    .screen-balance {
+        font-size: clamp(.4rem, 2.15vw, .56rem);
+        gap: .14rem;
+        padding: .08rem .04rem;
+    }
+    .coin {
+        width: clamp(.25rem, 1vw, .4rem);
+        height: clamp(.25rem, 1vw, .4rem);
+    }
+
+    .machine-screen-area {
+        left: 15.2%;
+        top: 28.4%;
+        width: 69.6%;
+        height: 35.2%;
+    }
+
+    .screen-content { padding: 0% 0%; }
+
+    .screen-brand { font-size: clamp(.75rem, 3.5vw, 1rem); }
+    .screen-brand-subtitle {
+        font-size: clamp(.28rem, 1vw, .38rem);
+        margin-bottom: .3rem;
+    }
+
+    .overview-grid { gap: 2px; }
+    .account-tile { padding: .35rem; border-radius: .35rem; }
+    .tile-icon { width: 1.1rem; height: 1.1rem; min-width: 1.2rem; border-radius: .4rem; }
+    .tile-icon svg { width: .6rem; height: .7rem; }
+    .tile-arrow { width: .95rem; height: .95rem; font-size: .85rem; }
+    .tile-title { font-size: clamp(.65rem, 2.9vw, .85rem); line-height: 0; }
+
+    .machine-ad-label { left: 14%; top: 67%; width: 72%; font-size: clamp(.32rem, 1.65vw, .46rem); }
+    .machine-ad-label span { margin-right: .15rem; padding: .08rem .2rem; }
+
+    .deck-btn-games { left: 19.2%; top: 75%; width: 31%; height: 6%; }
+    .deck-btn-prizes { right: 18.2%; top: 75%; width: 31%; height: 6%; }
+    .deck-btn-star-pick { left: 18%; top: 81%; width: 64%; height: 5.6%; }
+    .deck-btn-games span,
+    .deck-btn-prizes span,
+    .deck-btn-star-pick span { font-size: clamp(.42rem, 2.15vw, .58rem); line-height: 1; }
+}
+
+
+/* ============================================================
+   ============================================================
+   DYNAMIC INNER SCREENS — BIGGER TEXT
+   ============================================================
+   ============================================================ */
+
+
+/* ---------------- DASHBOARD VIEW ---------------- */
+.pz-screen-view.pz-dashboard-view {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ---------------- INNER SCREEN BASE ---------------- */
+.pz-inner-screen {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+}
+
+.pz-inner-screen * {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* ---------------- SHARED TOPBAR ---------------- */
+.pz-screen-topbar {
+    flex-shrink: 0;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: .45rem;
+    padding: .25rem 0 .4rem;
+    margin-bottom: .4rem;
+    border-bottom: 1px solid rgba(111,255,253,.18);
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.65rem, 3.9cqw, .9rem);
+    letter-spacing: .12em;
+    color: #cfcfe0;
+    text-transform: uppercase;
+}
+.pz-screen-topbar > span {
+    text-align: center;
+    font-weight: 800;
+    color: #6ffffd;
+    text-shadow: 0 0 6px rgba(111,255,253,.55);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.pz-back-button,
+.pz-logout-button {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(111,255,253,.28);
+    color: #cfcfe0;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.55rem, 3.4cqw, .75rem);
+    letter-spacing: .1em;
+    font-weight: 700;
+    padding: .35rem .6rem;
+    border-radius: .32rem;
+    cursor: pointer;
+    transition: background .15s ease, color .15s ease, border-color .15s ease;
+    white-space: nowrap;
+}
+.pz-back-button:hover,
+.pz-logout-button:hover {
+    background: #d043ff;
+    border-color: #d043ff;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(208,67,255,.55);
+}
+
+/* ---------------- SECTION TITLE ---------------- */
+.pz-section-title {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+    padding: .15rem .15rem .5rem;
+}
+.pz-section-title strong {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.8rem, 5cqw, 1.1rem);
+    letter-spacing: .18em;
+    color: #fff;
+    text-shadow: 0 0 6px rgba(111,255,253,.35);
+}
+.pz-section-title small {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.48rem, 2.9cqw, .65rem);
+    letter-spacing: .14em;
+    color: rgba(255,255,255,.55);
+}
+
+
+/* ============================================================
+   PROFILE FORM
+   ============================================================ */
+
+.pz-profile-form {
+    padding: 0 .15rem .5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.pz-field-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: .4rem .5rem;
+    margin-bottom: .45rem;
+}
+
+.pz-field-wide { grid-column: 1 / -1; }
+
+.pz-field {
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+    min-width: 0;
+}
+
+.pz-field > span {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.45rem, 2.7cqw, .6rem);
+    letter-spacing: .12em;
+    color: #6ffffd;
+    text-transform: uppercase;
+}
+
+.pz-field > span em {
+    color: rgba(255,255,255,.5);
+    font-style: normal;
+    text-transform: none;
+}
+
+.pz-field input,
+.pz-phone-body input {
+    width: 100%;
+    background: rgba(6,2,10,.72);
+    border: 1px solid rgba(111,255,253,.25);
+    border-radius: .3rem;
+    color: #fff;
+    padding: .4rem .5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.55rem, 3.2cqw, .75rem);
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color .15s ease, box-shadow .15s ease;
+    min-height: 1.8rem;
+}
+
+.pz-field input:focus,
+.pz-phone-body input:focus {
+    border-color: #6ffffd;
+    box-shadow: 0 0 8px rgba(111,255,253,.45);
+}
+
+.pz-field-readonly input {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.pz-phone-block {
+    border: 1px solid rgba(111,255,253,.2);
+    border-radius: .35rem;
+    padding: .45rem .55rem;
+    margin-bottom: .45rem;
+    background: rgba(6,2,10,.45);
+}
+
+.pz-phone-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: .3rem;
+    gap: .35rem;
+    flex-wrap: wrap;
+}
+
+.pz-phone-title {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.45rem, 2.7cqw, .6rem);
+    letter-spacing: .14em;
+    color: #6ffffd;
+    text-transform: uppercase;
+}
+
+.pz-phone-status {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.42rem, 2.5cqw, .58rem);
+    color: rgba(255,255,255,.55);
+}
+
+.pz-phone-status.is-on { color: #39ff14; }
+
+.pz-phone-body {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: .3rem;
+}
+
+.pz-mini-btn {
+    background: rgba(208,67,255,.16);
+    border: 1px solid rgba(208,67,255,.5);
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.55rem, 3.2cqw, .75rem);
+    letter-spacing: .12em;
+    font-weight: 700;
+    padding: .45rem .75rem;
+    border-radius: .3rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .15s ease, border-color .15s ease;
+    min-height: 1.8rem;
+}
+
+.pz-mini-btn:hover { background: #d043ff; border-color: #d043ff; }
+
+.pz-phone-remove {
+    background: rgba(255,99,99,.14);
+    border-color: rgba(255,99,99,.5);
+}
+
+.pz-phone-remove:hover { background: #ff6363; border-color: #ff6363; }
+
+.pz-reward-banner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: .4rem;
+    padding: .45rem .6rem;
+    border-radius: .35rem;
+    border: 1px dashed rgba(245,244,113,.55);
+    background: rgba(245,244,113,.06);
+    margin-bottom: .45rem;
+    color: #f5f471;
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.48rem, 2.9cqw, .65rem);
+    letter-spacing: .06em;
+}
+
+.pz-reward-icon { font-size: clamp(.8rem, 4.5cqw, 1.15rem); }
+.pz-reward-text strong { color: #fff; }
+
+.pz-reward-state {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.42rem, 2.5cqw, .58rem);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .85;
+}
+
+.pz-reward-state.is-done { color: #39ff14; opacity: 1; }
+
+.pz-form-actions {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    flex-wrap: wrap;
+}
+
+.pz-primary-btn {
+    background: linear-gradient(180deg, #d043ff, #802fa5);
+    border: none;
+    border-radius: .32rem;
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    letter-spacing: .14em;
+    font-size: clamp(.6rem, 3.5cqw, .85rem);
+    padding: .6rem 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #4a1f8f, 0 0 12px rgba(208,67,255,.4);
+    transition: transform .12s ease, box-shadow .12s ease;
+    text-transform: uppercase;
+    min-height: 2rem;
+}
+
+.pz-primary-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 0 #4a1f8f, 0 0 16px rgba(208,67,255,.6);
+}
+
+.pz-primary-btn:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.pz-form-msg {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.48rem, 2.9cqw, .65rem);
+    letter-spacing: .08em;
+}
+
+.pz-form-msg.is-ok    { color: #39ff14; }
+.pz-form-msg.is-error { color: #ff7a8a; }
+
+
+/* ============================================================
+   ACTIVITY / HISTORY TABS
+   ============================================================ */
+
+.pz-tabs {
+    flex-shrink: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .35rem;
+    margin-bottom: .45rem;
+    padding-bottom: .35rem;
+    border-bottom: 1px solid rgba(111,255,253,.18);
+}
+
+.pz-tab {
+    background: rgba(6,2,10,.7);
+    border: 1px solid rgba(111,255,253,.25);
+    color: rgba(255,255,255,.7);
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.55rem, 3.2cqw, .75rem);
+    letter-spacing: .1em;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: .5rem .3rem;
+    border-radius: .32rem;
+    cursor: pointer;
+    transition: background .15s ease, color .15s ease, border-color .15s ease;
+    white-space: nowrap;
+    min-height: 1.9rem;
+}
+
+.pz-tab:hover { color: #6ffffd; border-color: #6ffffd; }
+
+.pz-tab.is-active {
+    background: linear-gradient(180deg, #6ffffd, #02c7fb);
+    border-color: #6ffffd;
+    color: #0b1020;
+    box-shadow: 0 0 12px rgba(111,255,253,.45);
+}
+
+.pz-panel { display: none; flex-direction: column; }
+.pz-panel.is-active { display: flex; }
+
+.pz-panel-list {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    padding-bottom: .45rem;
+}
+
+.pz-card {
+    border: 1px solid rgba(111,255,253,.2);
+    border-radius: .35rem;
+    padding: .5rem .6rem;
+    background: rgba(6,2,10,.55);
+}
+
+.pz-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .45rem;
+    margin-bottom: .3rem;
+    flex-wrap: wrap;
+}
+
+.pz-card-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.6rem, 3.5cqw, .85rem);
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: .04em;
+}
+
+.pz-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem .6rem;
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.48rem, 2.9cqw, .65rem);
+    color: rgba(255,255,255,.7);
+    letter-spacing: .04em;
+}
+
+.pz-card-meta b { color: #f5f471; font-weight: 600; }
+
+.pz-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.44rem, 2.6cqw, .6rem);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .2rem .55rem;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    white-space: nowrap;
+}
+
+.pz-tag.is-wait { color: #f5f471; }
+.pz-tag.is-res  { color: #6ffffd; }
+.pz-tag.is-sent { color: #d043ff; }
+.pz-tag.is-done { color: #39ff14; }
+.pz-tag.is-hold { color: #ff9090; }
+
+.pz-coin-filter {
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    margin-bottom: .4rem;
+    flex-wrap: wrap;
+}
+
+.pz-coin-filter label {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.48rem, 2.9cqw, .65rem);
+    letter-spacing: .12em;
+    color: #6ffffd;
+    text-transform: uppercase;
+}
+
+.pz-coin-filter select {
+    background: rgba(6,2,10,.72);
+    border: 1px solid rgba(111,255,253,.35);
+    border-radius: .3rem;
+    color: #fff;
+    padding: .4rem .55rem;
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.5rem, 3cqw, .68rem);
+    outline: none;
+    min-height: 1.8rem;
+}
+
+
+/* ============================================================
+   TRANSACTION TABLE
+   ============================================================ */
+
+.pz-tx-table-wrap {
+    border: 1px solid rgba(111,255,253,.18);
+    border-radius: .35rem;
+    overflow: hidden;
+}
+
+.pz-tx-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.48rem, 2.9cqw, .65rem);
+    color: #fff;
+    table-layout: fixed;
+}
+
+.pz-tx-table thead th {
+    text-align: left;
+    padding: .45rem .55rem;
+    background: rgba(111,255,253,.08);
+    color: #6ffffd;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(111,255,253,.25);
+    white-space: nowrap;
+}
+
+.pz-tx-table td {
+    padding: .45rem .55rem;
+    border-bottom: 1px solid rgba(111,255,253,.12);
+    vertical-align: top;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.pz-tx-table .pz-num { text-align: right; font-variant-numeric: tabular-nums; }
+.pz-tx-table .pz-amt-pos { color: #39ff14; }
+.pz-tx-table .pz-amt-neg { color: #ff9090; }
+.pz-tx-table tr:last-child td { border-bottom: none; }
+
+@container pzscreen (max-width: 480px) {
+    .pz-tx-table-wrap {
+        border: none;
+        overflow: visible;
+        border-radius: 0;
+    }
+
+    .pz-tx-table,
+    .pz-tx-table thead,
+    .pz-tx-table tbody,
+    .pz-tx-table tr,
+    .pz-tx-table th,
+    .pz-tx-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .pz-tx-table thead { display: none; }
+
+    .pz-tx-table tr {
+        border: 1px solid rgba(111,255,253,.2);
+        border-radius: .35rem;
+        padding: .55rem .65rem;
+        margin-bottom: .4rem;
+        background: rgba(6,2,10,.55);
+    }
+
+    .pz-tx-table tr:last-child { margin-bottom: 0; }
+
+    .pz-tx-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: .6rem;
+        padding: .25rem 0;
+        border: none;
+        text-align: right;
+        font-size: clamp(.55rem, 3.2cqw, .72rem);
+    }
+
+    .pz-tx-table td::before {
+        content: attr(data-label);
+        font-family: 'DM Mono', monospace;
+        font-size: clamp(.48rem, 2.9cqw, .65rem);
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: #6ffffd;
+        text-align: left;
+        flex-shrink: 0;
+        font-weight: 600;
+    }
+
+    .pz-tx-table td.pz-num { text-align: right; }
+}
+
+.pz-empty {
+    padding: .65rem .5rem;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.5rem, 3cqw, .68rem);
+    color: rgba(255,255,255,.55);
+    font-style: italic;
+}
+
+
+/* ============================================================
+   PRIZELIST
+   ============================================================ */
+
+.pz-news-block,
+.pz-lock-block,
+.pz-unlocked-block {
+    border: 1px solid rgba(111,255,253,.25);
+    border-radius: .4rem;
+    background: rgba(6,2,10,.55);
+    padding: .6rem .7rem;
+    margin-bottom: .45rem;
+}
+
+.pz-news-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.48rem, 2.9cqw, .65rem);
+    letter-spacing: .1em;
+    color: #6ffffd;
+    text-transform: uppercase;
+    margin-bottom: .35rem;
+    gap: .35rem;
+    flex-wrap: wrap;
+}
+
+.pz-news-badge {
+    padding: .15rem .5rem;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    font-weight: 700;
+}
+
+.pz-news-badge.is-on  { color: #39ff14; }
+.pz-news-badge.is-off { color: #ff9090; }
+
+.pz-news-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.48rem, 2.9cqw, .65rem);
+    color: rgba(255,255,255,.7);
+    margin: 0 0 .5rem;
+    line-height: 1.4;
+}
+
+.pz-lock-block { text-align: center; }
+
+.pz-lock-icon {
+    font-size: clamp(1.2rem, 6.5cqw, 1.7rem);
+    margin-bottom: .25rem;
+}
+
+.pz-lock-block strong {
+    display: block;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.65rem, 3.8cqw, .9rem);
+    letter-spacing: .2em;
+    color: #f5f471;
+    margin-bottom: .4rem;
+}
+
+.pz-lock-block p,
+.pz-unlocked-block p {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.48rem, 2.9cqw, .65rem);
+    color: rgba(255,255,255,.7);
+    margin: 0 0 .5rem;
+    line-height: 1.4;
+}
+
+.pz-lock-form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: .35rem;
+    max-width: 20rem;
+    margin: 0 auto .35rem;
+}
+
+.pz-lock-form input {
+    background: rgba(6,2,10,.72);
+    border: 1px solid rgba(111,255,253,.35);
+    border-radius: .3rem;
+    color: #fff;
+    padding: .45rem .55rem;
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.5rem, 3cqw, .68rem);
+    outline: none;
+    min-height: 1.8rem;
+}
+
+.pz-lock-form input:focus {
+    border-color: #6ffffd;
+    box-shadow: 0 0 8px rgba(111,255,253,.45);
+}
+
+.pz-unlocked-block strong {
+    display: block;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.65rem, 3.8cqw, .9rem);
+    letter-spacing: .18em;
+    color: #f5f471;
+    margin-bottom: .45rem;
+}
+
+.pz-unlocked-content { color: #fff; }
+
+
+/* ============================================================
+   CARE
+   ============================================================ */
+
+.pz-care-hero {
+    text-align: center;
+    padding: .65rem .6rem .8rem;
+    border: 1px solid rgba(111,255,253,.22);
+    border-radius: .4rem;
+    background: rgba(6,2,10,.55);
+    margin-bottom: .5rem;
+}
+
+.pz-care-icon {
+    font-size: clamp(1.3rem, 7cqw, 1.9rem);
+    line-height: 1;
+    margin-bottom: .3rem;
+}
+
+.pz-care-hero strong {
+    display: block;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.7rem, 4.2cqw, .95rem);
+    letter-spacing: .12em;
+    color: #fff;
+    margin-bottom: .3rem;
+}
+
+.pz-care-hero p {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.48rem, 2.9cqw, .65rem);
+    color: rgba(255,255,255,.7);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.pz-care-actions {
+    display: flex;
+    flex-direction: column;
+    gap: .45rem;
+    margin-bottom: .5rem;
+}
+
+.pz-care-btn {
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+    padding: .65rem .8rem;
+    border-radius: .4rem;
+    text-decoration: none;
+    border: 1px solid rgba(111,255,253,.35);
+    background: linear-gradient(145deg, rgba(2,199,251,.22), rgba(48,26,75,.75));
+    transition: transform .12s ease, border-color .12s ease;
+}
+
+.pz-care-btn:hover {
+    transform: translateY(-1px);
+    border-color: #6ffffd;
+    box-shadow: 0 0 12px rgba(111,255,253,.35);
+}
+
+.pz-care-btn-label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: clamp(.65rem, 3.8cqw, .9rem);
+    letter-spacing: .14em;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.pz-care-btn-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.45rem, 2.7cqw, .6rem);
+    color: rgba(255,255,255,.65);
+}
+
+.pz-care-secondary {
+    border-color: rgba(208,67,255,.4);
+    background: linear-gradient(145deg, rgba(208,67,255,.25), rgba(48,26,75,.75));
+}
+.pz-care-secondary:hover { border-color: #d043ff; box-shadow: 0 0 12px rgba(208,67,255,.35); }
+
+.pz-care-tertiary {
+    border-color: rgba(245,244,113,.4);
+    background: linear-gradient(145deg, rgba(245,244,113,.16), rgba(48,26,75,.75));
+}
+.pz-care-tertiary:hover { border-color: #f5f471; box-shadow: 0 0 12px rgba(245,244,113,.35); }
+
+.pz-care-footer { text-align: center; padding-top: .4rem; }
+
+.pz-care-footer small {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.42rem, 2.5cqw, .58rem);
+    letter-spacing: .08em;
+    color: rgba(255,255,255,.45);
+}
+
+
+/* ============================================================
+   PRIZINO REWARDS
+   ============================================================ */
+
+.pz-rewards-balance {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    padding: .55rem .7rem;
+    border: 1px solid rgba(245,244,113,.35);
+    border-radius: .45rem;
+    background: linear-gradient(145deg, rgba(245,244,113,.14), rgba(48,26,75,.72));
+    margin-bottom: .5rem;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.pz-rewards-balance-label {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.48rem, 2.9cqw, .65rem);
+    letter-spacing: .16em;
+    color: #f5f471;
+    text-transform: uppercase;
+}
+
+.pz-rewards-balance-value {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.1rem, 6.2cqw, 1.6rem);
+    color: #fff;
+    text-shadow: 0 0 12px rgba(245,244,113,.55);
+    letter-spacing: .02em;
+}
+
+.pz-rewards-balance small { display: none; }
+
+.pz-rewards-list-title {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: .45rem;
+    padding: .15rem .15rem .35rem;
+    flex-wrap: wrap;
+}
+
+.pz-rewards-list-title strong {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.65rem, 3.8cqw, .9rem);
+    letter-spacing: .16em;
+    color: #fff;
+}
+
+.pz-rewards-list-title small {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.45rem, 2.7cqw, .6rem);
+    color: rgba(255,255,255,.55);
+}
+
+.pz-rewards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .4rem;
+    padding-bottom: .45rem;
+}
+
+.pz-reward-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .55rem;
+    padding: .55rem .65rem;
+    border: 1px solid rgba(111,255,253,.22);
+    border-radius: .35rem;
+    background: rgba(6,2,10,.55);
+    align-items: center;
+}
+
+.pz-reward-thumb {
+    width: clamp(2.2rem, 10cqw, 3rem);
+    height: clamp(2.2rem, 10cqw, 3rem);
+    border-radius: .3rem;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid rgba(111,255,253,.3);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+.pz-reward-thumb-fallback {
+    background: linear-gradient(145deg, #d043ff, #802fa5);
+    color: #fff;
+    font-size: clamp(.95rem, 5.5cqw, 1.4rem);
+    font-weight: 900;
+}
+
+.pz-reward-body {
+    display: flex;
+    flex-direction: column;
+    gap: .18rem;
+    min-width: 0;
+}
+
+.pz-reward-name {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: clamp(.65rem, 3.8cqw, .9rem);
+    color: #fff;
+    letter-spacing: .02em;
+}
+
+.pz-reward-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.45rem, 2.7cqw, .6rem);
+    color: rgba(255,255,255,.65);
+    line-height: 1.35;
+}
+
+.pz-reward-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .4rem;
+    margin-top: .15rem;
+    flex-wrap: wrap;
+}
+
+.pz-reward-cost {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.55rem, 3.2cqw, .75rem);
+    font-weight: 700;
+    color: #f5f471;
+    letter-spacing: .06em;
+}
+
+@container pzscreen (min-width: 480px) {
+    .pz-rewards-grid { grid-template-columns: 1fr 1fr; }
+}
+
+
+/* ============================================================
+   STAR PICK
+   ============================================================ */
+
+.pz-star-pick-current {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .4rem;
+    padding: .7rem .6rem;
+    border: 1px solid rgba(245, 244, 113, .4);
+    border-radius: .45rem;
+    background: linear-gradient(145deg, rgba(245, 244, 113, .12), rgba(48, 26, 75, .75));
+    text-align: center;
+}
+
+.pz-star-pick-label {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.48rem, 2.9cqw, .65rem);
+    letter-spacing: .18em;
+    color: #f5f471;
+    text-transform: uppercase;
+}
+
+.pz-star-pick-thumb {
+    width: clamp(3.5rem, 24cqw, 7rem);
+    height: clamp(3.5rem, 24cqw, 7rem);
+    border-radius: .45rem;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid rgba(245, 244, 113, .5);
+    box-shadow: 0 0 20px rgba(245, 244, 113, .35);
+}
+
+.pz-star-pick-thumb-fallback {
+    display: grid;
+    place-items: center;
+    background: linear-gradient(145deg, #f5f471, #e6b82a);
+    color: #301a4b;
+    font-size: clamp(1.5rem, 8.5cqw, 2.6rem);
+    font-weight: 900;
+}
+
+.pz-star-pick-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.75rem, 4.4cqw, 1rem);
+    font-weight: 800;
+    letter-spacing: .04em;
+    color: #fff;
+}
+
+.pz-star-pick-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.48rem, 2.9cqw, .65rem);
+    color: rgba(255, 255, 255, .7);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.pz-star-pick-status {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.45rem, 2.7cqw, .6rem);
+    letter-spacing: .14em;
+    color: #39ff14;
+    text-transform: uppercase;
+    margin-top: .2rem;
+}
+
+.pz-star-pick-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .4rem;
+    padding: .5rem .4rem;
+    text-align: center;
+}
+
+.pz-star-pick-hero {
+    font-size: clamp(1.5rem, 8.5cqw, 2.4rem);
+    color: #f5f471;
+    text-shadow: 0 0 24px rgba(245, 244, 113, .7);
+    line-height: 1;
+}
+
+.pz-star-pick-intro > strong {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.75rem, 4.4cqw, 1rem);
+    letter-spacing: .16em;
+    color: #fff;
+}
+
+.pz-star-pick-intro > p {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.48rem, 2.9cqw, .65rem);
+    color: rgba(255, 255, 255, .72);
+    line-height: 1.45;
+    margin: 0;
+    max-width: 22rem;
+}
+
+.pz-star-pick-steps {
+    list-style: none;
+    padding: 0;
+    margin: .4rem 0 .5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    width: 100%;
+    max-width: 20rem;
+    text-align: left;
+}
+
+.pz-star-pick-steps li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .45rem;
+    align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.48rem, 2.9cqw, .65rem);
+    color: rgba(255, 255, 255, .8);
+}
+
+.pz-star-pick-steps li span {
+    display: grid;
+    place-items: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #f5f471, #e6b82a);
+    color: #301a4b;
+    font-weight: 900;
+    font-size: clamp(.55rem, 3.2cqw, .75rem);
+}
+
+.pz-star-pick-cta {
+    display: inline-block;
+    margin-top: .4rem;
+    padding: .6rem 1.1rem;
+    border-radius: .35rem;
+    background: linear-gradient(180deg, #f5f471, #e6b82a);
+    color: #301a4b;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: clamp(.6rem, 3.5cqw, .85rem);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 3px 0 #8a6d0e, 0 0 14px rgba(245, 244, 113, .45);
+    transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.pz-star-pick-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 0 #8a6d0e, 0 0 20px rgba(245, 244, 113, .65);
+}
+
+
+/* ============================================================
+   COMING SOON
+   ============================================================ */
+
+.pz-coming-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .4rem;
+    padding: 1.4rem .5rem;
+    text-align: center;
+}
+
+.pz-coming-icon {
+    font-size: clamp(1.5rem, 8.5cqw, 2.4rem);
+    color: #d043ff;
+    text-shadow: 0 0 20px rgba(208,67,255,.6);
+}
+
+.pz-coming-content strong {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(.75rem, 4.4cqw, 1rem);
+    letter-spacing: .2em;
+    color: #fff;
+}
+
+.pz-coming-content span {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(.5rem, 3cqw, .68rem);
+    color: rgba(255,255,255,.55);
+}
+
+.pz-back-main {
+    margin-top: .7rem;
+    background: linear-gradient(180deg, #6ffffd, #02c7fb);
+    border: none;
+    border-radius: .35rem;
+    color: #0b1020;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: clamp(.6rem, 3.5cqw, .85rem);
+    letter-spacing: .14em;
+    padding: .6rem 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #146a94, 0 0 12px rgba(111,255,253,.4);
+    text-transform: uppercase;
+}
+
+.pz-back-main:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 0 #146a94, 0 0 16px rgba(111,255,253,.6);
+}
+
+
+/* ============================================================
+   CONTAINER QUERIES — TIGHTEN ON NARROW SCREENS
+   ============================================================ */
+
+@container pzscreen (max-width: 420px) {
+    .pz-field-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: .35rem .45rem;
+    }
+    .pz-tabs {
+        grid-template-columns: repeat(3, 1fr);
+        gap: .3rem;
+    }
+    .pz-tab {
+        font-size: clamp(.5rem, 3cqw, .68rem);
+        padding: .45rem .25rem;
+        letter-spacing: .06em;
+    }
+    .pz-phone-body {
+        grid-template-columns: 1fr auto auto;
+    }
+}
+
+@container pzscreen (max-width: 340px) {
+    .pz-field-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: .3rem .4rem;
+    }
+    .pz-tabs {
+        grid-template-columns: repeat(3, 1fr);
+        gap: .25rem;
+    }
+    .pz-tab {
+        font-size: clamp(.45rem, 2.8cqw, .6rem);
+        padding: .4rem .2rem;
+        letter-spacing: .04em;
+    }
+    .pz-screen-topbar {
+        font-size: clamp(.55rem, 3.4cqw, .75rem);
+        gap: .35rem;
+    }
+    .pz-back-button,
+    .pz-logout-button {
+        font-size: clamp(.48rem, 2.9cqw, .65rem);
+        padding: .3rem .5rem;
+    }
+    .pz-phone-body {
+        grid-template-columns: 1fr;
+    }
+    .pz-phone-body .pz-mini-btn {
+        width: 100%;
+    }
+    .pz-lock-form {
+        grid-template-columns: 1fr;
+    }
+    .pz-lock-form button {
+        width: 100%;
+    }
+    .pz-form-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .pz-primary-btn {
+        width: 100%;
+    }
+}
+
+/* ============================================================
+   HIDE SCROLLBAR — scrolling still works, just invisible
+   ============================================================ */
+
+.screen-content {
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* IE / old Edge */
+}
+
+.screen-content::-webkit-scrollbar {
+    display: none;                /* Chrome, Safari, Edge, Opera */
+    width: 0;
+    height: 0;
+}

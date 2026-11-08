@@ -73,10 +73,12 @@ if (!window.PZ_CONFIG) {
             var pretty = formatted[key];
             if (pretty) { el.textContent = pretty; return; }
             var n = parseFloat(balances[key]);
-            if (isNaN(n)) { el.textContent = '— ' + unit; return; }
+            el.title = isNaN(n) ? '' : n + ' ' + unit;
+            if (isNaN(n)) { el.textContent = '—'; return; }
+            // The coin face already shows the unit, so the counter shows the number only.
             el.textContent = n.toLocaleString(undefined, {
-                minimumFractionDigits: 2, maximumFractionDigits: 2
-            }) + ' ' + unit;
+                minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2
+            });
         }
         set('pz-bal-tz', 'Tz', 'Tz');
         set('pz-bal-dz', 'Dz', 'Dz');
@@ -198,10 +200,11 @@ if (!window.PZ_CONFIG) {
     function topbar(title) {
         return '' +
             '<div class="pz-screen-topbar">' +
-                '<button type="button" class="pz-back-button" data-screen="dashboard">← BACK</button>' +
-                '<span>' + esc(title) + '</span>' +
-                '<button type="button" class="pz-logout-button" ' +
-                    'onclick="window.location.href=\'/wp-login.php?action=logout\'">LOGOUT</button>' +
+                '<button type="button" class="pz-back-button" data-screen="dashboard" aria-label="Back to account">' +
+                    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>BACK</span>' +
+                '</button>' +
+                '<span class="pz-topbar-title">' + esc(title) + '</span>' +
+                '<span class="pz-topbar-spacer" aria-hidden="true"></span>' +
             '</div>';
     }
 
@@ -210,20 +213,23 @@ if (!window.PZ_CONFIG) {
         if (!screenContent) screenContent = document.getElementById("pz-screen-content");
         if (!screenContent) return;
 
+        /* Grid order follows the client layout:
+           left column  — Profile (tall), Prizelist, Care
+           right column — Activity, History, Prizino Rewards (tall) */
         var tiles = [
-            { key:"profile",   label:"Profile",         cls:"tile-profile",   icon:"purple",
-              svg:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.2 3.6-7 8-7s8 2.8 8 7"/>' },
-            { key:"activity",  label:"Activity",        cls:"tile-activity",  icon:"cyan",
-              svg:'<path d="M13 2L3 14h8l-1 8 11-14h-8z"/>' },
-            { key:"history",   label:"History",         cls:"tile-history",   icon:"yellow",
-              svg:'<circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/>' },
-            { key:"prizelist", label:"Prizelist",       cls:"tile-prizelist", icon:"green",
-              svg:'<rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 9h8M8 13h6"/>' },
-            { key:"care",      label:"Care",            cls:"tile-care",      icon:"white",
-              svg:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>' },
-            { key:"rewards",   label:"Prizino Rewards", cls:"tile-rewards",   icon:"cyan",
-              svg:'<path d="M20 12v8H4v-8"/><path d="M2 7h20v5H2z"/><path d="M12 7v13"/>' +
-                  '<path d="M12 7H8.5A2.5 2.5 0 1 1 11 4.5V7z"/><path d="M12 7h3.5A2.5 2.5 0 1 0 13 4.5V7z"/>' }
+            { key:"profile",   label:"Profile",         cls:"tile-profile tile-tall",
+              svg:'<circle cx="12" cy="8.5" r="3.8" class="is-fill"/><path d="M5 20c.8-4 3.6-6 7-6s6.2 2 7 6z" class="is-fill"/>' },
+            { key:"activity",  label:"Activity",        cls:"tile-activity",
+              svg:'<path d="M5 19h14"/><path d="M8 16v-4M12 16V7M16 16v-6"/>' },
+            { key:"history",   label:"History",         cls:"tile-history",
+              svg:'<circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/>' },
+            { key:"prizelist", label:"Prizelist",       cls:"tile-prizelist",  lock:true,
+              svg:'<rect x="4" y="6" width="16" height="12" rx="2"/><path d="M4.5 7l7.5 6 7.5-6"/>' },
+            { key:"rewards",   label:"Prizino Rewards", cls:"tile-rewards tile-tall",
+              svg:'<rect x="4" y="11" width="16" height="9" rx="1.5"/><rect x="3" y="7.5" width="18" height="4" rx="1"/><path d="M12 7.5V20"/>' +
+                  '<path d="M12 7.5c-1.5-3-5-3.2-5-1s3 1 5 1zM12 7.5c1.5-3 5-3.2 5-1s-3 1-5 1z"/>' },
+            { key:"care",      label:"Care",            cls:"tile-care",
+              svg:'<path d="M12 19.5s-7-4.3-7-9.3A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7 2.2c0 5-7 9.3-7 9.3z" class="is-fill"/>' }
         ];
 
         screenContent.innerHTML =
@@ -231,17 +237,29 @@ if (!window.PZ_CONFIG) {
                 '<div class="overview-grid">' +
                     tiles.map(function (t) {
                         return '<button type="button" class="account-tile ' + t.cls + '" data-screen="' + t.key + '">' +
-                            '<div class="tile-top">' +
-                                '<span class="tile-icon tile-icon-' + t.icon + '">' +
-                                    '<svg viewBox="0 0 24 24">' + t.svg + '</svg>' +
-                                '</span>' +
-                                '<span class="tile-arrow">›</span>' +
-                            '</div>' +
-                            '<div class="tile-title">' + esc(t.label) + '</div>' +
+                            '<span class="tile-text">' +
+                                '<span class="tile-title">' + esc(t.label) + '</span>' +
+                                (t.lock ? '<span class="tile-lock" id="pz-tile-lock" hidden aria-label="Locked">' +
+                                    '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>' +
+                                '</span>' : '') +
+                            '</span>' +
+                            '<span class="tile-icon" aria-hidden="true">' +
+                                '<svg viewBox="0 0 24 24">' + t.svg + '</svg>' +
+                            '</span>' +
                         '</button>';
                     }).join("") +
                 '</div>' +
             '</div>';
+
+        // Show the padlock on Prizelist while its hidden content is still locked (read-only check).
+        if (LOGGED_IN) {
+            pzFetch("prizelist")
+                .then(function (d) {
+                    var lock = document.getElementById("pz-tile-lock");
+                    if (lock) lock.hidden = !!(d && d.unlocked);
+                })
+                .catch(function () {});
+        }
     }
 
     /* ---------- PROFILE ---------- */
@@ -529,8 +547,24 @@ if (!window.PZ_CONFIG) {
                     '<span>Draw date: <b>' + fmtDate(g.draw_date) + '</b></span>' +
                     (g.entries ? '<span>Entries: <b>' + esc(g.entries) + '</b></span>' : '') +
                 '</div>' +
+                drawTracker(g.entry_date, g.draw_date) +
             '</div>';
         }).join("");
+    }
+
+    /* "Waiting for draw" tracker: progress from entry date to draw date (display only). */
+    function drawTracker(entry, draw) {
+        var a = new Date(entry).getTime(), b = new Date(draw).getTime();
+        if (isNaN(b)) return '';
+        var now = Date.now();
+        if (isNaN(a) || a >= b) a = Math.min(now, b);
+        var pct = b > a ? Math.max(0, Math.min(100, ((now - a) / (b - a)) * 100)) : 100;
+        var days = Math.ceil((b - now) / 86400000);
+        var left = days > 1 ? days + ' days to draw' : days === 1 ? '1 day to draw' : 'Draw due';
+        return '<div class="pz-draw-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + Math.round(pct) + '" aria-label="Time until draw">' +
+                   '<span class="pz-draw-rail"><i style="width:' + pct.toFixed(1) + '%"></i></span>' +
+                   '<span class="pz-draw-left">' + esc(left) + '</span>' +
+               '</div>';
     }
 
     function loadGames() {
@@ -1172,6 +1206,37 @@ if (!window.PZ_CONFIG) {
         console.log('[Prizino] pzInit OK');
         return true;
     }
+
+    /* ---------- CABINET FIT (display only) ----------
+       On tall phones the cabinet fills the screen height. The extra height goes to the
+       screen glass: SVG shapes marked data-pz="stretch" grow, the lower cabinet moves down,
+       and --dy tells the CSS how far. Desktop keeps the drawn proportions (dy = 0). */
+    function fitCabinet() {
+        var cab = document.querySelector(".prizino-arcade");
+        var svg = cab && cab.querySelector(".pz-art svg");
+        if (!cab || !svg || !cab.clientWidth) return;
+        var u  = cab.clientWidth / 690;
+        var dy = Math.max(0, Math.round(cab.clientHeight / u - 990));
+        if (svg.dataset.pzDy === String(dy)) return;
+        svg.dataset.pzDy = String(dy);
+        svg.setAttribute("viewBox", "0 0 690 " + (990 + dy));
+        svg.querySelectorAll('[data-pz="stretch"]').forEach(function (el) {
+            if (!el.dataset.pzH) el.dataset.pzH = el.getAttribute("height");
+            el.setAttribute("height", parseFloat(el.dataset.pzH) + dy);
+        });
+        svg.querySelectorAll('[data-pz="shift"]').forEach(function (el) {
+            el.setAttribute("transform", dy ? "translate(0 " + dy + ")" : "");
+        });
+        cab.style.setProperty("--dy", dy);
+    }
+
+    (function bootFit(n) {
+        var cab = document.querySelector(".prizino-arcade");
+        if (!cab) { if ((n || 0) < 200) setTimeout(function () { bootFit((n || 0) + 1); }, 100); return; }
+        fitCabinet();
+        if (window.ResizeObserver) new ResizeObserver(fitCabinet).observe(cab);
+        else window.addEventListener("resize", fitCabinet);
+    })(0);
 
     (function boot() {
         if (pzInit()) return;

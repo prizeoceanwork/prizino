@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prizino — Account (Demo)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="prizino-arcade-stage">
+    <div class="prizino-arcade" role="region" aria-label="Prizino player account">
+
+        <!-- ⬇⬇⬇ PASTE YOUR SVG FILE CONTENTS RIGHT HERE (see Step 4) ⬇⬇⬇ -->
+       <div class="pz-art">
+    <img src="prizino-cabinet.svg" alt="" style="position:absolute;inset:0;width:100%;height:100%;">
+</div>
+        <!-- ⬆⬆⬆ PASTE YOUR SVG FILE CONTENTS RIGHT HERE ⬆⬆⬆ -->
+
+        <div class="pz-zone pz-userbar" style="--x:46;--y:30;--w:598;--h:46">
+            <span class="pz-version">VER 1.0</span>
+            <span class="pz-welcome">
+                <svg class="pz-welcome-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="4"/><circle cx="12" cy="10" r="3.4"/><path d="M6 19c1-3 3.4-4.4 6-4.4s5 1.4 6 4.4"/></svg>
+                <span class="pz-welcome-text">Welcome, <strong id="pz-player-name">Demo Player</strong></span>
+            </span>
+            <a class="pz-logout" href="#" onclick="return false;" aria-label="Log out" title="Log out">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"/><path d="M14 8l4 4-4 4M18 12H9"/></svg>
+            </a>
+        </div>
+
+        <div class="pz-zone pz-levelbar" style="--x:84;--y:90;--w:522;--h:38">
+            <span class="pz-level-pill">
+                <i class="pz-level-fill" id="pz-progress-bar" style="--progress:0%;"></i>
+                <span class="pz-level-label">PLAYER LEVEL</span>
+                <b class="pz-level-text" id="pz-player-level">00&lt;01 Welcome</b>
+            </span>
+            <span class="pz-level-progress">
+                <small>PROGRESS</small>
+                <b id="pz-progress-value">0%</b>
+            </span>
+            <span class="pz-level-xp" id="pz-player-xp" hidden>0 / 0</span>
+        </div>
+
+        <a class="pz-zone pz-coin pz-coin-tz" href="#" onclick="return false;" style="--x:39;--y:142;--w:196;--h:46" aria-label="Tokenz balance">
+            <b class="pz-led" id="pz-bal-tz">—</b>
+        </a>
+        <a class="pz-zone pz-coin pz-coin-dz" href="#" onclick="return false;" style="--x:247;--y:142;--w:196;--h:46" aria-label="Dimenz balance">
+            <b class="pz-led" id="pz-bal-dz">—</b>
+        </a>
+        <button type="button" class="pz-zone pz-coin pz-coin-pr" data-screen="rewards" style="--x:455;--y:142;--w:196;--h:46" aria-label="Prizino Rewards balance">
+            <b class="pz-led" id="pz-bal-pr">—</b>
+        </button>
+
+        <div class="pz-zone pz-screen" style="--x:56;--y:216;--w:578;--h:556">
+            <div class="screen-content" id="pz-screen-content"></div>
+        </div>
+
+        <aside class="pz-zone pz-lower pz-ad" style="--x:70;--y:798;--w:550;--h:72" aria-label="Sponsor">
+            <span class="pz-ad-placeholder">
+                <strong>AD SPACE</strong>
+                <small>(PLACEHOLDER)</small>
+            </span>
+        </aside>
+
+        <a class="pz-zone pz-lower pz-arcade-btn is-game" href="#" onclick="return false;" style="--x:148;--y:894;--w:174;--h:36">
+            <span>Games</span>
+        </a>
+        <a class="pz-zone pz-lower pz-arcade-btn is-prize" href="#" onclick="return false;" style="--x:368;--y:894;--w:174;--h:36">
+            <span>Prizes</span>
+        </a>
+        <button type="button" class="pz-zone pz-lower pz-arcade-btn is-game is-star" data-screen="star-pick" style="--x:248;--y:940;--w:194;--h:35">
+            <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.3L12 17.1l-5.7 3.1 1.2-6.3-4.7-4.4 6.4-.8z"/></svg>Star Pick</span>
+        </button>
+
+    </div>
+</div>
+
+<script>
+window.PZ_CONFIG = {
+    api:    "/wp-json/prizino/v1/",
+    nonce:  "demo",
+    userId: 1
+};
+</script>
+<script src="script.js"></script>
+</body>
+</html>
